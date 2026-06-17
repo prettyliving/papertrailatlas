@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Paper Trail Atlas — Printable planners for adventurers, students, and travelers. Navigate, document, and remember every journey.">
+<meta property="og:title" content="Paper Trail Atlas">
+<meta property="og:description" content="Adventure planners, student trackers & travel journals — digital downloads for explorers.">
+<meta property="og:url" content="https://papertrailatlas.com">
+<title>Paper Trail Atlas — Organize Your Adventure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & BASE ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #F5EFE0;
+  color: #2C2212;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+
+/* ─── CSS VARIABLES ─────────────────────────────────────── */
+:root {
+  --ink:   #2C2212;
+  --brown: #7C5E2A;
+  --gold:  #C4A35A;
+  --sage:  #5C7A6A;
+  --parch: #F5EFE0;
+  --lgray: #EDE7D4;
+  --mgray: #D4C9AE;
+  --sgray: #B8AA90;
+  --dkink: #1A140C;
+  --nav-h: 68px;
+}
+
+/* ─── TOPOGRAPHIC TEXTURE ───────────────────────────────── */
+.topo-bg {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+}
+.topo-bg svg { width: 100%; height: 100%; opacity: 0.12; }
+
+/* ─── NAV ───────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  border-bottom: 1px solid rgba(196,163,90,0.25);
+  transition: background 0.3s;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.nav-compass { flex-shrink: 0; }
+.nav-name {
+  font-family: 'Lora', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--parch);
+  letter-spacing: 0.01em;
+}
+.nav-name span { color: var(--gold); }
+.nav-links {
+  display: flex; gap: 2rem; list-style: none;
+}
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(245,239,224,0.6);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-cta {
+  background: var(--gold);
+  color: var(--ink) !important;
+  padding: 0.45rem 1.1rem;
+  border-radius: 2px;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.08em !important;
+  transition: background 0.2s, opacity 0.2s !important;
+}
+.nav-cta:hover { background: #d4b468; opacity: 1; color: var(--ink) !important; }
+
+/* hamburger */
+.nav-burger {
+  display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px;
+  background: none; border: none;
+}
+.nav-burger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--parch); border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+.nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu {
+  display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+  background: var(--dkink); border-bottom: 1px solid rgba(196,163,90,0.2);
+  padding: 1.5rem 2rem; z-index: 99; flex-direction: column; gap: 1.2rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 0.95rem; font-weight: 500; color: var(--parch);
+  letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(196,163,90,0.1);
+}
+.mobile-menu a:last-child { border: none; }
+
+/* ─── SECTIONS ──────────────────────────────────────────── */
+section { position: relative; }
+
+/* ─── HERO ──────────────────────────────────────────────── */
+#home {
+  min-height: 100vh;
+  background: var(--ink);
+  display: flex; align-items: center;
+  padding: calc(var(--nav-h) + 3rem) 2.5rem 4rem;
+  overflow: hidden;
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1160px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+.hero-text { max-width: 520px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block; width: 28px; height: 1px; background: var(--gold); opacity: 0.5;
+}
+.hero-h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 700; line-height: 1.1;
+  color: var(--parch); margin-bottom: 1rem;
+}
+.hero-h1 em { font-style: italic; color: var(--gold); }
+.hero-tagline {
+  font-family: 'Lora', serif;
+  font-size: 1.05rem; font-style: italic;
+  color: var(--sgray); margin-bottom: 1.8rem; line-height: 1.6;
+}
+.hero-tag-row {
+  display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem;
+}
+.tag {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(196,163,90,0.3); color: var(--sgray);
+  border-radius: 2px;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--gold); color: var(--ink);
+  padding: 0.8rem 1.8rem; border-radius: 2px;
+  font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.btn-primary:hover { background: #d4b468; transform: translateY(-1px); }
+.btn-outline {
+  border: 1px solid rgba(196,163,90,0.4); color: var(--parch);
+  padding: 0.8rem 1.8rem; border-radius: 2px;
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  background: transparent; display: inline-block;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+/* compass canvas */
+.hero-compass-wrap {
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+#heroCanvas {
+  width: 100%; max-width: 420px; height: auto;
+  filter: drop-shadow(0 0 60px rgba(196,163,90,0.12));
+}
+.hero-scroll-hint {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  color: var(--sgray); font-size: 0.7rem; letter-spacing: 0.15em;
+  text-transform: uppercase; animation: bob 2.5s ease-in-out infinite;
+}
+.hero-scroll-hint::after {
+  content: ''; display: block; width: 1px; height: 32px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+@keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(5px); } }
+
+/* ─── STRIP DIVIDER ─────────────────────────────────────── */
+.strip {
+  background: var(--dkink);
+  padding: 0.9rem 2.5rem;
+  display: flex; justify-content: center; align-items: center;
+  gap: 2rem; overflow: hidden;
+}
+.strip-item {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold); white-space: nowrap;
+}
+.strip-dot { color: rgba(196,163,90,0.3); font-size: 0.5rem; }
+
+/* ─── SHOP ──────────────────────────────────────────────── */
+#shop {
+  background: var(--parch);
+  padding: 6rem 2.5rem;
+}
+.section-inner { max-width: 1160px; margin: 0 auto; width: 100%; }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-eyebrow {
+  display: inline-block; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--brown); margin-bottom: 0.8rem;
+}
+.section-eyebrow::before { content: '—  '; color: var(--gold); }
+.section-eyebrow::after  { content: '  —'; color: var(--gold); }
+.section-h2 {
+  font-family: 'Lora', serif;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 700; color: var(--ink); line-height: 1.15; margin-bottom: 0.8rem;
+}
+.section-sub {
+  font-size: 1rem; color: var(--brown); line-height: 1.7; max-width: 520px; margin: 0 auto;
+}
+
+/* collection tabs */
+.shop-tabs {
+  display: flex; justify-content: center; gap: 0.5rem;
+  margin-bottom: 2.8rem; flex-wrap: wrap;
+}
+.tab-btn {
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.5rem 1.2rem;
+  border: 1px solid var(--mgray); border-radius: 2px;
+  background: transparent; color: var(--brown);
+  cursor: pointer; transition: all 0.18s;
+}
+.tab-btn:hover { border-color: var(--brown); }
+.tab-btn.active {
+  background: var(--ink); color: var(--gold);
+  border-color: var(--ink);
+}
+
+/* product grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.4rem;
+}
+.product-card {
+  background: white;
+  border: 1px solid var(--mgray);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: transform 0.18s, box-shadow 0.18s;
+  display: none;
+}
+.product-card.visible { display: flex; flex-direction: column; }
+.product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(44,34,18,0.1); }
+
+.product-cover {
+  height: 160px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.product-cover svg { position: absolute; opacity: 0.08; width: 80%; height: 80%; }
+.cover-content { position: relative; z-index: 1; text-align: center; padding: 1rem; }
+.cover-collection {
+  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; margin-bottom: 0.5rem; opacity: 0.7;
+}
+.cover-title {
+  font-family: 'Lora', serif; font-size: 1rem; font-weight: 700; line-height: 1.25;
+}
+.cover-brand {
+  font-size: 0.6rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; margin-top: 0.5rem; opacity: 0.5;
+}
+.product-meta { padding: 1rem 1.1rem 1.2rem; flex: 1; display: flex; flex-direction: column; }
+.product-name {
+  font-family: 'Lora', serif; font-size: 0.95rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 0.25rem; line-height: 1.3;
+}
+.product-pages { font-size: 0.75rem; color: var(--sgray); margin-bottom: 0.8rem; }
+.product-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto; padding-top: 0.75rem;
+  border-top: 1px solid var(--lgray);
+}
+.product-price {
+  font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 700; color: var(--brown);
+}
+.product-btn {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.4rem 0.9rem;
+  background: var(--ink); color: var(--gold); border: none;
+  border-radius: 2px; cursor: pointer; transition: background 0.18s;
+}
+.product-btn:hover { background: var(--brown); }
+
+/* bundles */
+.bundles-row {
+  margin-top: 2.5rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.bundle-card {
+  background: var(--ink); border-radius: 3px;
+  padding: 1.5rem; display: flex; align-items: center; gap: 1.2rem;
+  transition: transform 0.18s;
+}
+.bundle-card:hover { transform: translateY(-2px); }
+.bundle-compass { flex-shrink: 0; }
+.bundle-text h3 {
+  font-family: 'Lora', serif; font-size: 1rem; font-weight: 700; color: var(--parch);
+  margin-bottom: 0.25rem;
+}
+.bundle-text p { font-size: 0.8rem; color: var(--sgray); line-height: 1.5; margin-bottom: 0.6rem; }
+.bundle-price { font-size: 0.9rem; font-weight: 700; color: var(--gold); }
+.bundle-link {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold); margin-left: 0.8rem;
+  border-bottom: 1px solid rgba(196,163,90,0.4);
+  transition: border-color 0.18s;
+}
+.bundle-link:hover { border-color: var(--gold); }
+
+/* ─── ABOUT ─────────────────────────────────────────────── */
+#about {
+  background: var(--ink);
+  padding: 6rem 2.5rem;
+  overflow: hidden;
+}
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+}
+.about-visual {
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+#aboutCanvas { width: 100%; max-width: 340px; }
+.about-text {}
+.about-text .section-eyebrow { color: var(--gold); }
+.about-text .section-h2 { color: var(--parch); text-align: left; margin-bottom: 1.2rem; }
+.about-body {
+  font-size: 0.98rem; color: var(--sgray); line-height: 1.9; margin-bottom: 1.5rem;
+}
+.about-body strong { color: var(--parch); font-weight: 500; }
+.pillars { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 1.8rem 0; }
+.pillar {
+  border-top: 2px solid var(--gold); padding-top: 1rem;
+}
+.pillar-word {
+  font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 700;
+  color: var(--parch); margin-bottom: 0.3rem;
+}
+.pillar-def { font-size: 0.78rem; color: var(--sgray); line-height: 1.5; }
+.about-sig {
+  font-family: 'Lora', serif; font-style: italic;
+  font-size: 1rem; color: var(--gold); margin-top: 1.5rem;
+}
+
+/* ─── CONTACT ───────────────────────────────────────────── */
+#contact {
+  background: var(--lgray);
+  padding: 6rem 2.5rem;
+}
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+}
+.contact-info .section-h2 { text-align: left; margin-bottom: 1rem; }
+.contact-info .section-sub { margin: 0 0 2rem; text-align: left; }
+.contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+.contact-link-item {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.8rem 1rem; background: white;
+  border: 1px solid var(--mgray); border-radius: 2px;
+  transition: border-color 0.18s, transform 0.15s;
+  color: var(--ink);
+}
+.contact-link-item:hover { border-color: var(--gold); transform: translateX(3px); }
+.contact-link-icon {
+  width: 32px; height: 32px; background: var(--ink); border-radius: 2px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.contact-link-icon svg { width: 16px; height: 16px; }
+.contact-link-text { flex: 1; }
+.contact-link-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sgray); }
+.contact-link-val { font-size: 0.9rem; font-weight: 500; color: var(--ink); }
+.contact-link-arrow { color: var(--gold); font-size: 1rem; }
+
+/* form */
+.contact-form-wrap {}
+.contact-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown); }
+.form-input, .form-textarea {
+  padding: 0.75rem 1rem; border: 1px solid var(--mgray);
+  border-radius: 2px; background: white;
+  font-family: 'Inter', sans-serif; font-size: 0.92rem; color: var(--ink);
+  transition: border-color 0.18s;
+  outline: none; width: 100%;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--gold); }
+.form-textarea { height: 130px; resize: vertical; }
+.form-submit {
+  align-self: flex-start;
+  background: var(--ink); color: var(--gold);
+  padding: 0.8rem 2rem; border: none; border-radius: 2px;
+  font-family: 'Inter', sans-serif; font-size: 0.82rem;
+  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.18s, transform 0.15s;
+}
+.form-submit:hover { background: var(--brown); transform: translateY(-1px); }
+.form-note { font-size: 0.75rem; color: var(--sgray); margin-top: 0.3rem; }
+
+/* ─── FOOTER ────────────────────────────────────────────── */
+footer {
+  background: var(--dkink);
+  padding: 3rem 2.5rem 2rem;
+  border-top: 1px solid rgba(196,163,90,0.15);
+}
+.footer-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 2rem; flex-wrap: wrap;
+}
+.footer-brand .footer-name {
+  font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--parch); margin-bottom: 0.3rem;
+}
+.footer-brand .footer-name span { color: var(--gold); }
+.footer-tagline { font-size: 0.78rem; color: var(--sgray); font-style: italic; }
+.footer-nav { display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-nav a { font-size: 0.8rem; color: var(--sgray); transition: color 0.18s; }
+.footer-nav a:hover { color: var(--gold); }
+.footer-bottom {
+  max-width: 1160px; margin: 2rem auto 0;
+  padding-top: 1.5rem; border-top: 1px solid rgba(196,163,90,0.1);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 0.5rem;
+}
+.footer-copy, .footer-legal { font-size: 0.72rem; color: rgba(184,170,144,0.5); }
+
+/* ─── ANIMATIONS ────────────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ─── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-burger { display: flex; }
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+  .hero-text { max-width: 100%; }
+  .hero-eyebrow { justify-content: center; }
+  .hero-btns { justify-content: center; }
+  .hero-tag-row { justify-content: center; }
+  .hero-compass-wrap { order: -1; }
+  #heroCanvas { max-width: 260px; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-visual { display: none; }
+  .about-text .section-h2 { text-align: center; }
+  .about-text .section-eyebrow { display: block; text-align: center; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .contact-info .section-h2 { text-align: center; }
+  .contact-info .section-sub { text-align: center; margin: 0 auto 2rem; }
+  .pillars { grid-template-columns: 1fr; gap: 1.2rem; }
+  .strip { gap: 1rem; }
+  .strip-item:nth-child(n+5) { display: none; }
+}
+@media (max-width: 560px) {
+  nav { padding: 0 1.2rem; }
+  #home, #shop, #about, #contact, footer { padding-left: 1.2rem; padding-right: 1.2rem; }
+  .hero-h1 { font-size: 2rem; }
+  .product-grid { grid-template-columns: 1fr; }
+  .bundles-row { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; gap: 1.5rem; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .strip-item:nth-child(n+3) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-brand">
+    <svg class="nav-compass" width="28" height="28" viewBox="0 0 80 80" fill="none">
+      <circle cx="40" cy="40" r="34" stroke="#C4A35A" stroke-width="1.5" fill="none"/>
+      <circle cx="40" cy="40" r="27" stroke="#C4A35A" stroke-width="0.6" stroke-dasharray="3 4" fill="none"/>
+      <polygon points="40,12 37,24 40,22 43,24" fill="#F5EFE0"/>
+      <polygon points="40,68 37,56 40,58 43,56" fill="#A07840"/>
+      <polygon points="68,40 56,37 58,40 56,43" fill="#A07840"/>
+      <polygon points="12,40 24,37 22,40 24,43" fill="#A07840"/>
+      <circle cx="40" cy="40" r="3" fill="#C4A35A"/>
+      <circle cx="40" cy="40" r="1.4" fill="#2C2212"/>
+    </svg>
+    <span class="nav-name">Paper Trail <span>Atlas</span></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="nav-cta">Shop on Etsy</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" class="mobile-link">Home</a>
+  <a href="#shop" class="mobile-link">Shop</a>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank">Shop on Etsy →</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="topo-bg">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+      <g stroke="#C4A35A" stroke-width="0.8" fill="none">
+        <path d="M-100,200 Q200,180 400,210 Q600,240 800,200 Q1000,160 1200,195 Q1400,230 1600,200"/>
+        <path d="M-100,260 Q200,235 450,265 Q650,295 850,255 Q1050,215 1200,255"/>
+        <path d="M-100,320 Q250,295 480,330 Q680,355 880,315 Q1080,275 1200,315"/>
+        <path d="M-100,380 Q200,360 430,390 Q630,415 830,380 Q1030,340 1200,375"/>
+        <path d="M-100,440 Q220,420 460,450 Q660,475 870,435 Q1070,400 1200,440"/>
+        <path d="M-100,500 Q200,480 440,510 Q650,535 860,495 Q1060,460 1200,500"/>
+        <path d="M-100,140 Q180,125 380,150 Q580,175 780,140 Q980,105 1200,135"/>
+        <path d="M-100,80  Q200,65  380,90  Q570,115 770,78  Q970,45  1200,75"/>
+        <path d="M-100,560 Q210,545 440,570 Q640,590 850,555 Q1050,520 1200,560"/>
+        <path d="M-100,620 Q220,605 450,630 Q655,650 860,615 Q1060,580 1200,620"/>
+        <path d="M-100,680 Q200,665 420,690 Q620,710 830,675 Q1030,640 1200,675"/>
+        <path d="M-100,740 Q210,720 440,745 Q640,765 845,730 Q1045,695 1200,735"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Organize Your Adventure</div>
+      <h1 class="hero-h1">Every journey<br>deserves a <em>plan.</em></h1>
+      <p class="hero-tagline">Printable planners for adventurers, students, and travelers. Navigate, document, and remember every trail.</p>
+      <div class="hero-tag-row">
+        <span class="tag">Digital Download</span>
+        <span class="tag">Print at Home</span>
+        <span class="tag">iPad Compatible</span>
+      </div>
+      <div class="hero-btns">
+        <a href="#shop" class="btn-primary">Browse Products</a>
+        <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="btn-outline">Shop on Etsy</a>
+      </div>
+    </div>
+    <div class="hero-compass-wrap">
+      <canvas id="heroCanvas" width="420" height="420"></canvas>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">Explore</div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <span class="strip-item">Adventure Planners</span>
+  <span class="strip-dot">◆</span>
+  <span class="strip-item">National Parks</span>
+  <span class="strip-dot">◆</span>
+  <span class="strip-item">Road Trips</span>
+  <span class="strip-dot">◆</span>
+  <span class="strip-item">Student Trackers</span>
+  <span class="strip-dot">◆</span>
+  <span class="strip-item">Instant Download</span>
+  <span class="strip-dot">◆</span>
+  <span class="strip-item">Print at Home</span>
+</div>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">The Collection</div>
+      <h2 class="section-h2">Find Your Trail</h2>
+      <p class="section-sub">10 planners across three collections. Every product is an instant PDF download — print at home, at a local shop, or use digitally on your iPad.</p>
+    </div>
+
+    <div class="shop-tabs reveal">
+      <button class="tab-btn active" data-filter="all">All Products</button>
+      <button class="tab-btn" data-filter="adventure">Adventure</button>
+      <button class="tab-btn" data-filter="student">Student</button>
+      <button class="tab-btn" data-filter="life">Life Adventures</button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+
+      <!-- Adventure Collection -->
+      <div class="product-card visible" data-collection="adventure">
+        <div class="product-cover" style="background:#2C2212;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:#C4A35A;">Adventure Collection</div>
+            <div class="cover-title" style="color:#F5EFE0;">Travel Route<br>Planner</div>
+            <div class="cover-brand" style="color:#C4A35A;">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Travel Route Planner</div>
+          <div class="product-pages">10 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$7.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card visible" data-collection="adventure">
+        <div class="product-cover" style="background:#5C7A6A;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:rgba(245,239,224,0.7);">Adventure Collection</div>
+            <div class="cover-title" style="color:#F5EFE0;">National Parks<br>Atlas</div>
+            <div class="cover-brand" style="color:rgba(245,239,224,0.5);">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">National Parks Atlas</div>
+          <div class="product-pages">8 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$5.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card visible" data-collection="adventure">
+        <div class="product-cover" style="background:#3a2a10;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:#C4A35A;">Adventure Collection</div>
+            <div class="cover-title" style="color:#F5EFE0;">Road Trip<br>Planner</div>
+            <div class="cover-brand" style="color:#C4A35A;">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Road Trip Planner</div>
+          <div class="product-pages">17 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$6.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card visible" data-collection="adventure">
+        <div class="product-cover" style="background:#4a3820;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:#C4A35A;">Adventure Collection</div>
+            <div class="cover-title" style="color:#F5EFE0;">Travel Memory<br>Journal</div>
+            <div class="cover-brand" style="color:#C4A35A;">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Travel Memory Journal</div>
+          <div class="product-pages">17 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$6.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Collection -->
+      <div class="product-card visible" data-collection="student">
+        <div class="product-cover" style="background:#F5EFE0; border-bottom: 1px solid #D4C9AE;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:#5C7A6A;">Student Collection</div>
+            <div class="cover-title" style="color:#2C2212;">Academic Trail<br>Planner</div>
+            <div class="cover-brand" style="color:#7C5E2A;">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Academic Trail Planner</div>
+          <div class="product-pages">20 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$5.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card visible" data-collection="student">
+        <div class="product-cover" style="background:#7C5E2A;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:rgba(245,239,224,0.7);">Student Collection</div>
+            <div class="cover-title" style="color:#F5EFE0;">Career Route<br>Atlas</div>
+            <div class="cover-brand" style="color:rgba(245,239,224,0.5);">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Career Route Atlas</div>
+          <div class="product-pages">9 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$7.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card visible" data-collection="student">
+        <div class="product-cover" style="background:#EDE7D4; border-bottom: 1px solid #D4C9AE;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:#5C7A6A;">Student Collection</div>
+            <div class="cover-title" style="color:#2C2212;">Study Expedition<br>Workbook</div>
+            <div class="cover-brand" style="color:#7C5E2A;">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Study Expedition Workbook</div>
+          <div class="product-pages">18 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$6.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card visible" data-collection="student">
+        <div class="product-cover" style="background:#4a6a5a;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:rgba(245,239,224,0.7);">Student Collection</div>
+            <div class="cover-title" style="color:#F5EFE0;">Study Abroad<br>Planner</div>
+            <div class="cover-brand" style="color:rgba(245,239,224,0.5);">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Study Abroad Planner</div>
+          <div class="product-pages">18 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$7.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Life Adventures -->
+      <div class="product-card visible" data-collection="life">
+        <div class="product-cover" style="background:#F5EFE0; border-bottom: 1px solid #D4C9AE;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:#7C5E2A;">Life Adventures</div>
+            <div class="cover-title" style="color:#2C2212;">Life Compass<br>Goal Planner</div>
+            <div class="cover-brand" style="color:#7C5E2A;">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Life Compass Goal Planner</div>
+          <div class="product-pages">20 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$8.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card visible" data-collection="life">
+        <div class="product-cover" style="background:#3d5548;">
+          <div class="cover-content">
+            <div class="cover-collection" style="color:rgba(245,239,224,0.7);">Life Adventures</div>
+            <div class="cover-title" style="color:#F5EFE0;">Volunteer Journey<br>Tracker</div>
+            <div class="cover-brand" style="color:rgba(245,239,224,0.5);">Paper Trail Atlas</div>
+          </div>
+        </div>
+        <div class="product-meta">
+          <div class="product-name">Volunteer Journey Tracker</div>
+          <div class="product-pages">15 pages · PDF</div>
+          <div class="product-footer">
+            <div class="product-price">$5.99</div>
+            <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="product-btn">Get It</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /product-grid -->
+
+    <!-- Bundles -->
+    <div class="bundles-row reveal">
+      <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="bundle-card">
+        <div class="bundle-compass">
+          <svg width="44" height="44" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="34" stroke="#C4A35A" stroke-width="1.5" fill="none"/>
+            <polygon points="40,12 37,24 40,22 43,24" fill="#F5EFE0"/>
+            <polygon points="40,68 37,56 40,58 43,56" fill="#A07840"/>
+            <polygon points="68,40 56,37 58,40 56,43" fill="#A07840"/>
+            <polygon points="12,40 24,37 22,40 24,43" fill="#A07840"/>
+            <circle cx="40" cy="40" r="3.5" fill="#C4A35A"/>
+          </svg>
+        </div>
+        <div class="bundle-text">
+          <h3>Adventure Starter Bundle</h3>
+          <p>Travel Route, National Parks, Road Trip & Travel Memory — all four adventure planners together.</p>
+          <span class="bundle-price">$19.99 <span class="bundle-link">Shop Bundle</span></span>
+        </div>
+      </a>
+      <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="bundle-card">
+        <div class="bundle-compass">
+          <svg width="44" height="44" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="34" stroke="#C4A35A" stroke-width="1.5" fill="none"/>
+            <polygon points="40,12 37,24 40,22 43,24" fill="#F5EFE0"/>
+            <polygon points="40,68 37,56 40,58 43,56" fill="#A07840"/>
+            <polygon points="68,40 56,37 58,40 56,43" fill="#A07840"/>
+            <polygon points="12,40 24,37 22,40 24,43" fill="#A07840"/>
+            <circle cx="40" cy="40" r="3.5" fill="#C4A35A"/>
+          </svg>
+        </div>
+        <div class="bundle-text">
+          <h3>Student Success Bundle</h3>
+          <p>Academic Trail, Career Route, Study Expedition & Study Abroad — the full student collection.</p>
+          <span class="bundle-price">$22.99 <span class="bundle-link">Shop Bundle</span></span>
+        </div>
+      </a>
+      <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="bundle-card">
+        <div class="bundle-compass">
+          <svg width="44" height="44" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="34" stroke="#C4A35A" stroke-width="1.5" fill="none"/>
+            <polygon points="40,12 37,24 40,22 43,24" fill="#F5EFE0"/>
+            <polygon points="40,68 37,56 40,58 43,56" fill="#A07840"/>
+            <polygon points="68,40 56,37 58,40 56,43" fill="#A07840"/>
+            <polygon points="12,40 24,37 22,40 24,43" fill="#A07840"/>
+            <circle cx="40" cy="40" r="3.5" fill="#C4A35A"/>
+          </svg>
+        </div>
+        <div class="bundle-text">
+          <h3>Complete Collection</h3>
+          <p>All 10 planners. Every trail covered. The full Paper Trail Atlas library.</p>
+          <span class="bundle-price">$39.99 <span class="bundle-link">Shop Bundle</span></span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="topo-bg">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+      <g stroke="#C4A35A" stroke-width="0.8" fill="none">
+        <path d="M-100,150 Q300,130 600,160 Q900,190 1200,155"/>
+        <path d="M-100,230 Q280,210 560,240 Q860,270 1200,235"/>
+        <path d="M-100,310 Q300,285 580,320 Q880,350 1200,315"/>
+        <path d="M-100,390 Q260,370 560,400 Q860,430 1200,395"/>
+        <path d="M-100,470 Q300,450 580,480 Q880,510 1200,475"/>
+        <path d="M-100,550 Q270,530 560,560 Q860,590 1200,555"/>
+        <path d="M-100,630 Q300,610 570,640 Q870,665 1200,630"/>
+      </g>
+    </svg>
+  </div>
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <canvas id="aboutCanvas" width="340" height="340"></canvas>
+      </div>
+      <div class="about-text">
+        <div class="section-eyebrow" style="display:inline-block;margin-bottom:0.8rem;">The Story</div>
+        <h2 class="section-h2" style="color:var(--parch);">Built for the life<br>you're actually living.</h2>
+        <p class="about-body">
+          Paper Trail Atlas started with a simple problem: I wanted planners that worked for <strong>all of it</strong> — college, road trips, national parks, internships, and everything in between. I couldn't find anything that fit, so I made it.
+        </p>
+        <p class="about-body">
+          Every product in this shop is built around one idea: <strong>your life is the longest expedition you'll ever take.</strong> The planners, journals, and trackers here are the field tools that help you navigate it with intention.
+        </p>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-word">Navigate</div>
+            <div class="pillar-def">Plan every journey before you leave the trailhead.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-word">Document</div>
+            <div class="pillar-def">Capture every trail, trip, and milestone.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-word">Remember</div>
+            <div class="pillar-def">Keep the moments that matter organized and alive.</div>
+          </div>
+        </div>
+        <p class="about-sig">Navigate. Document. Remember.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="section-eyebrow">Get in Touch</div>
+        <h2 class="section-h2">Find Us on<br>the Trail</h2>
+        <p class="section-sub">Questions about a product? Can't find what you're looking for? Want to suggest a planner we should make next? We'd love to hear from you.</p>
+        <div class="contact-links">
+          <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank" class="contact-link-item">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#C4A35A" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+              </svg>
+            </div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">Shop</div>
+              <div class="contact-link-val">etsy.com/shop/PaperTrailAtlas</div>
+            </div>
+            <span class="contact-link-arrow">→</span>
+          </a>
+          <a href="https://tiktok.com/@papertrailatlas" target="_blank" class="contact-link-item">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="#C4A35A">
+                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/>
+              </svg>
+            </div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">TikTok</div>
+              <div class="contact-link-val">@papertrailatlas</div>
+            </div>
+            <span class="contact-link-arrow">→</span>
+          </a>
+          <a href="https://pinterest.com/papertrailatlas" target="_blank" class="contact-link-item">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="#C4A35A">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.08 3.16 9.44 7.63 11.22-.1-.96-.2-2.43.04-3.47.22-.94 1.47-6.25 1.47-6.25s-.38-.75-.38-1.86c0-1.75 1.01-3.06 2.27-3.06 1.07 0 1.59.8 1.59 1.77 0 1.08-.69 2.7-1.04 4.2-.3 1.25.62 2.27 1.84 2.27 2.21 0 3.7-2.83 3.7-6.18 0-2.56-1.73-4.35-4.21-4.35-2.87 0-4.55 2.15-4.55 4.37 0 .87.33 1.79.75 2.3.08.1.09.19.07.29-.08.32-.25 1.01-.29 1.15-.04.18-.15.22-.34.13-1.25-.58-2.03-2.42-2.03-3.89 0-3.15 2.29-6.05 6.6-6.05 3.47 0 6.16 2.47 6.16 5.77 0 3.44-2.17 6.2-5.18 6.2-1.01 0-1.96-.53-2.29-1.15l-.62 2.33c-.22.87-.83 1.96-1.24 2.62.94.29 1.93.45 2.96.45 6.63 0 12-5.37 12-12S18.63 0 12 0z"/>
+              </svg>
+            </div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">Pinterest</div>
+              <div class="contact-link-val">@papertrailatlas</div>
+            </div>
+            <span class="contact-link-arrow">→</span>
+          </a>
+          <a href="https://payhip.com/PaperTrailAtlas" target="_blank" class="contact-link-item">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#C4A35A" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+              </svg>
+            </div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">Direct Store</div>
+              <div class="contact-link-val">payhip.com/PaperTrailAtlas</div>
+            </div>
+            <span class="contact-link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap reveal reveal-delay-2">
+        <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="name">Your Name</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Explorer" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject</label>
+            <input class="form-input" type="text" id="subject" name="subject" placeholder="Question about a product">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="What's on your trail?" required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">Send Message</button>
+          <p class="form-note">We reply within 24–48 hours. For order issues, message us directly on Etsy.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-name">Paper Trail <span>Atlas</span></div>
+      <div class="footer-tagline">Navigate · Document · Remember</div>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <nav class="footer-nav" aria-label="External links">
+      <a href="https://etsy.com/shop/PaperTrailAtlas" target="_blank">Etsy Shop</a>
+      <a href="https://payhip.com/PaperTrailAtlas" target="_blank">Payhip Store</a>
+      <a href="https://tiktok.com/@papertrailatlas" target="_blank">TikTok</a>
+      <a href="https://pinterest.com/papertrailatlas" target="_blank">Pinterest</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Paper Trail Atlas. All rights reserved.</span>
+    <span class="footer-legal">All products for personal use only · Not for resale</span>
+  </div>
+</footer>
+
+<script>
+// ─── NAV ───────────────────────────────────────────────────────
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+// close on link click
+document.querySelectorAll('.mobile-link').forEach(a => {
+  a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+// active nav link on scroll
+const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#'+current); });
+}, { passive: true });
+
+// ─── SHOP FILTER ───────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.product-card').forEach(card => {
+      const match = filter === 'all' || card.dataset.collection === filter;
+      card.classList.toggle('visible', match);
+    });
+  });
+});
+
+// ─── SCROLL REVEAL ─────────────────────────────────────────────
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ─── CONTACT FORM ──────────────────────────────────────────────
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Message Sent ✓';
+  btn.style.background = '#5C7A6A';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Send Message';
+    btn.style.background = '';
+    btn.disabled = false;
+    e.target.reset();
+  }, 3500);
+}
+
+// ─── CANVAS COMPASS ────────────────────────────────────────────
+function drawCompass(canvasId, size, opts = {}) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const cx = size / 2, cy = size / 2;
+  const R = size * 0.44;
+
+  const GOLD  = opts.gold  || '#C4A35A';
+  const PARCH = opts.parch || '#F5EFE0';
+  const DIM   = opts.dim   || '#A07840';
+  const BG    = opts.bg    || null;
+
+  let angle = 0;
+
+  function draw() {
+    ctx.clearRect(0, 0, size, size);
+
+    // subtle topo rings
+    for (let i = 0; i < 6; i++) {
+      const r = R * (0.3 + i * 0.14);
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(196,163,90,0.06)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // outer ring
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.strokeStyle = GOLD;
+    ctx.lineWidth = size * 0.006;
+    ctx.stroke();
+
+    // inner dashed ring
+    const r2 = R * 0.76;
+    const segs = 60;
+    ctx.strokeStyle = GOLD;
+    ctx.lineWidth = size * 0.003;
+    for (let i = 0; i < segs; i++) {
+      if (i % 3 === 2) continue;
+      const a1 = (i / segs) * Math.PI * 2;
+      const a2 = ((i + 1) / segs) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.moveTo(cx + r2 * Math.cos(a1), cy + r2 * Math.sin(a1));
+      ctx.lineTo(cx + r2 * Math.cos(a2), cy + r2 * Math.sin(a2));
+      ctx.stroke();
+    }
+
+    // diagonal ticks
+    [45, 135, 225, 315].forEach(deg => {
+      const a = (deg + angle) * Math.PI / 180;
+      ctx.beginPath();
+      ctx.moveTo(cx + R * 0.60 * Math.cos(a), cy + R * 0.60 * Math.sin(a));
+      ctx.lineTo(cx + R * 0.72 * Math.cos(a), cy + R * 0.72 * Math.sin(a));
+      ctx.strokeStyle = 'rgba(196,163,90,0.5)';
+      ctx.lineWidth = size * 0.003;
+      ctx.stroke();
+    });
+
+    // cardinal N/S/E/W labels
+    const cardLabels = [['N',0],[' ',90],['S',180],[' ',270]];
+    ctx.font = `${size * 0.055}px Lora, Georgia, serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    cardLabels.forEach(([lbl, deg]) => {
+      const a = (deg + angle - 90) * Math.PI / 180;
+      const lr = R * 0.88;
+      ctx.fillStyle = deg === 0 ? PARCH : 'rgba(196,163,90,0.5)';
+      ctx.fillText(lbl, cx + lr * Math.cos(a), cy + lr * Math.sin(a));
+    });
+
+    // arrows
+    function arrow(deg, col) {
+      const a   = ((deg + angle) * Math.PI / 180);
+      const ar  = a + Math.PI / 2;
+      const ao  = R * 0.82, ai = R * 0.28, aw = R * 0.13, stub = R * 0.20;
+      const tip  = [cx + ao * Math.cos(a),   cy + ao * Math.sin(a)];
+      const base = [cx + ai * Math.cos(a),   cy + ai * Math.sin(a)];
+      const l    = [base[0] + aw * Math.cos(ar), base[1] + aw * Math.sin(ar)];
+      const rr   = [base[0] - aw * Math.cos(ar), base[1] - aw * Math.sin(ar)];
+      const s    = [cx - stub * Math.cos(a),  cy - stub * Math.sin(a)];
+      ctx.beginPath();
+      ctx.moveTo(...tip); ctx.lineTo(...l); ctx.lineTo(...s); ctx.lineTo(...rr);
+      ctx.closePath();
+      ctx.fillStyle = col; ctx.fill();
+    }
+
+    // N points up (−90°)
+    arrow(-90 - angle * 0, PARCH);
+    arrow(90 - angle * 0,  DIM);
+    arrow(0  - angle * 0,  DIM);
+    arrow(180 - angle * 0, DIM);
+
+    // center
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 0.07, 0, Math.PI * 2);
+    ctx.fillStyle = GOLD; ctx.fill();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 0.035, 0, Math.PI * 2);
+    ctx.fillStyle = BG || '#2C2212'; ctx.fill();
+  }
+
+  // slow ambient rotation for hero compass only
+  if (opts.rotate) {
+    let lastTime = 0;
+    function animate(ts) {
+      if (ts - lastTime > 16) { angle += 0.04; draw(); lastTime = ts; }
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  } else {
+    draw();
+  }
+}
+
+// init compasses
+drawCompass('heroCanvas',  420, { bg: '#1A140C', rotate: true });
+drawCompass('aboutCanvas', 340, { bg: '#2C2212', gold: '#C4A35A' });
+</script>
+</body>
+</html>
